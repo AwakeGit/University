@@ -1,5 +1,6 @@
-import subprocess
 import datetime
+import subprocess
+
 
 def run_command(command):
     """Функция для выполнения команды в терминале."""
@@ -10,18 +11,22 @@ def run_command(command):
         print(f"Ошибка при выполнении команды: {command}\n{result.stderr}")
         return None
 
+
 def clean_repo():
     """Функция для полной очистки репозитория."""
     print("Очищаем изменения в отслеживаемых файлах...")
     run_command('git reset --hard')
 
-    print("Удаляем неотслеживаемые файлы...")
+    print("Удаляем не отслеживаемые файлы...")
     run_command('git clean -fd')
 
     print("Репозиторий полностью очищен от всех изменений.")
 
+
 def merge_dev_to_prd():
-    """Функция для автоматического переноса ревизии из dev в prd с установкой тэга."""
+    """
+    Функция для автоматического переноса ревизии из dev в prd с установкой тэга.
+    """
     target_branch = 'prd'
 
     print("Переключаемся на ветку dev и подтягиваем изменения...")
@@ -39,7 +44,8 @@ def merge_dev_to_prd():
         print("Слияние прошло успешно.")
         tag_name = f"release-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}"
         print(f"Добавляем тег {tag_name}...")
-        run_command(f'git tag -a {tag_name} -m "Auto-release from dev to prd on {datetime.datetime.now()}"')
+        run_command(
+            f'git tag -a {tag_name} -m "Auto-release from dev to prd on {datetime.datetime.now()}"')
 
         print("Отправляем изменения и тег в удаленный репозиторий...")
         run_command(f'git push origin {target_branch}')
@@ -48,6 +54,7 @@ def merge_dev_to_prd():
         print(f"Изменения из dev успешно перенесены в prd с тегом {tag_name}.")
     else:
         print("Слияние не удалось. Проверьте конфликтные файлы.")
+
 
 if __name__ == "__main__":
     print("Выберите операцию:")
