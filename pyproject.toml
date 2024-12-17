@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "university-python-lab"
+version = "0.1.0"
+description = ""
+authors = ["Nikulenok Pavel <pashaaaa86@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+black = "^24.10.0"
+pandas = "^2.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
